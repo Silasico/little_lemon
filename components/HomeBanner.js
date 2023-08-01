@@ -1,35 +1,24 @@
 import {
   View, Text, Image, StyleSheet
 } from "react-native"
-import { useState, useEffect } from "react"
-import * as Font from "expo-font"
+import { useState } from "react"
 import { useFonts } from "expo-font"
 import SearchBar from "./SearchBar";
 
-const HomeBanner = () => {
-  const [loading, setLoading] = useState(true)
+const HomeBanner = ({ headerFont, bodyFont }) => {
   const [searchValue, setSearchValue] = useState("")
   
-  useEffect(()=> {
-    const loadFont = async () => {
-      await Font.loadAsync({
-        "Karla-Regular": require("../assets/fonts/Karla-Regular.ttf"),
-        "MarkaziText-Regular": require("../assets/fonts/MarkaziText-Regular.ttf")
-      })
-      setLoading(false)
-    }
-    loadFont()
-  }, [])
+  
   
   return (
     <View style = {banner.container}>
-      <Text style = {loading ? banner.headerText : {...banner.headerText, fontFamily: "MarkaziText-Regular"}}>
+      <Text style = {{...banner.headerText, fontFamily: headerFont}}>
       Little Lemon
       </Text>
       <View style = {banner.showcase}>
         <View style = {banner.showcaseTexts}>
-          <Text style = {loading ? banner.showcaseHeader : {...banner.showcaseHeader, fontFamily: "MarkaziText-Regular"}}>Chicago</Text>
-          <Text style = {loading ? banner.showcaseLines : {...banner.showcaseLines, fontFamily: "Karla-Regular"}}>We are a family owned Mediterranean Restaurant, focused on traditional recipes served with modern twist</Text>
+          <Text style = {{...banner.showcaseHeader, fontFamily: headerFont}}>Chicago</Text>
+          <Text style = {{...banner.showcaseLines, fontFamily: bodyFont}}>We are a family owned Mediterranean Restaurant, focused on traditional recipes served with modern twist</Text>
         </View>
         <View style = {banner.imageBox}>
           <Image
@@ -69,7 +58,7 @@ const banner = StyleSheet.create({
     marginBottom: 20
   },
   showcaseTexts: {
-    flex: 1.5,
+    flex: 4,
     marginRight: 10
   },
   showcaseHeader: {
@@ -82,7 +71,7 @@ const banner = StyleSheet.create({
     color: "#FFFFFF"
   },
   imageBox: {
-    flex: 1,
+    flex: 2,
     marginLeft: 20,
   },
   showcaseImage: {
