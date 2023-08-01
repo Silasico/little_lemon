@@ -5,13 +5,17 @@ import {
   StyleSheet, Pressable
 } from "react-native"
 
-const Home = ({navigation}) => {
+import HomeHeader from "../components/HomeHeader"
+import HomeBanner from "../components/HomeBanner"
+//https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/capstone.json
+
+const Home = ({ navigation }) => {
   return (
     <View style = {home.container}>
-      <Text>Welcome to the Home Screen</Text>
-      <Pressable
-        onPress = {() => navigation.navigate("Profile")}
-      ><Text>Profile Page</Text></Pressable>
+      <HomeHeader
+        navigation = {navigation}
+      />
+      <HomeBanner />
     </View>
   )
 }
@@ -19,8 +23,8 @@ export default Home
 
 const home = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    //flex: 1,
+    //alignItems: "center",
+    //justifyContent: "center",
   }
 })
