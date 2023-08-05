@@ -1,12 +1,17 @@
 import {
   Text, Image, View, StyleSheet
 } from "react-native"
+import { useState, useEffect } from "react"
+
+import { imgArr } from "./ImageResources"
 
 
-
-
-const RenderList = ({ name, description, price, image, font }) => {
-
+const RenderList = ({ name, description, price, font, category }) => {
+  const [imageSource, setImageSource] = useState(null)
+  
+  useEffect(() => {
+    imgArr.map(img => img.name === name && setImageSource(img.source))
+  }, [])
   
   return (
     <View style = {style.container}>
@@ -22,8 +27,8 @@ const RenderList = ({ name, description, price, image, font }) => {
         </Text>
       </View>
       <View style = {style.imageBox}>
-        <Image 
-          source = {{uri: `https://github.com/Meta-Mobile-Developer-PC/Working-With-Data-API/blob/main/images/${image}?raw=true`}}
+        <Image
+          source = {imageSource}
           resizeMode = "cover"
           style = {style.image}
         />

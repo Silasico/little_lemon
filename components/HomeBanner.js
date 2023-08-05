@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useFonts } from "expo-font"
 import SearchBar from "./SearchBar";
 
-const HomeBanner = ({ headerFont, bodyFont }) => {
+const HomeBanner = ({ headerFont, bodyFont, setQuery, updateList }) => {
   const [searchValue, setSearchValue] = useState("")
   
   
@@ -32,8 +32,10 @@ const HomeBanner = ({ headerFont, bodyFont }) => {
         <SearchBar
           placeholder = "Enter your preferred delicacy to search"
           value = {searchValue}
-          onClear = {() => setSearchValue("")}
-          onChangeText = {val => setSearchValue(val)}
+          onClear = {() => setQuery("")}
+          onChangeText = {val => {
+            setQuery(val)
+          }}
         />
       </View>
     </View>

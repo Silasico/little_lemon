@@ -2,19 +2,21 @@ import {
   View,
   Text,
   Image,
-  StyleSheet, Pressable, ScrollView
+  StyleSheet, Pressable, ScrollView, Alert, BackHandler
 } from "react-native"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import * as Font from "expo-font"
+import { useFocusEffect } from "@react-navigation/native"
 
 import HomeHeader from "../components/HomeHeader"
 import HomeBanner from "../components/HomeBanner"
 import HomeData from "../components/HomeData"
-//https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/capstone.json
-//#F4CE14
+
 
 const Home = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
+  const [query, setQuery] = useState("")
+  const [close, setClose] = useState(false)
   
   useEffect(()=> {
     const loadFont = async () => {
@@ -27,6 +29,28 @@ const Home = ({ navigation }) => {
     loadFont()
   }, [])
   
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPressed = () => {
+        Alert.alert("Exit?", "Are you sure you ant to exit app?", [
+            {
+              text: "Yes",
+              onPress: () => BackHandler.exitApp()
+            },
+            {
+              text: "No"
+            }
+          ])
+        return true
+      }
+      
+      BackHandler.addEventListener("hardwareBackPress", onBackPressed)
+      
+      return () => BackHandler.removeEventListener("hardwareBackPress", onBackPressed)
+      
+    }, [close])
+  )
+  
   
   return (
     <ScrollView style = {home.container}>
@@ -36,10 +60,13 @@ const Home = ({ navigation }) => {
       <HomeBanner 
         headerFont = {!loading ? "MarkaziText-Regular" : ""}
         bodyFont = {!loading ? "Karla-Regular" : ""}
+        setQuery = {(val) => setQuery(val)}
       />
       <HomeData 
         font = {!loading ? "Karla-Regular" : ""}
+        query = {query}
       />
+     
     </ScrollView>
   )
 }
@@ -47,7 +74,8 @@ export default Home
 
 const home = StyleSheet.create({
   container: {
-    //flex: 1,
+    flex: 1,
+    backgroundColor: "#fff"
     //alignItems: "center",
     //justifyContent: "center",
   }

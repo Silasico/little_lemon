@@ -1,17 +1,37 @@
-import { View, Text, TextInput, Pressable, Image, StyleSheet, Alert } from 'react-native'
-import { useState, useEffect } from 'react'
+import { View, Text, TextInput, Pressable, Image, StyleSheet, Alert, BackHandler } from 'react-native'
+import { useState, useEffect, useCallback, useContext } from 'react'
 import { Validate } from './FormValidation'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+
+import { useFocusEffect } from "@react-navigation/native"
+
+import { AppContext } from "../context/context"
 
 const Onboarding = ({navigation}) => {
   const [firstName, setFirstName] = useState("")
   const [email, setEmail] = useState("")
   
+  const { details, setDetails } = useContext(AppContext)
+  
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPressed = () => {
+        BackHandler.exitApp()
+        return true
+      }
+      
+      BackHandler.addEventListener("hardwareBackPress", onBackPressed)
+      
+      return () => BackHandler.removeEventListener("hardwareBackPress", onBackPressed)
+     })
+  )
+  
   const changeScreen = () => {
     const initials = firstName[0]
     if(Validate(firstName, email)) {
      storeData({firstName, email, initials})
-     navigation.replace("Home")
+     setDetails({firstName, email, initials})
+     navigation.navigate("Home")
     }
   }
   

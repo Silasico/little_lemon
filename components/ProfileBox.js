@@ -1,16 +1,19 @@
 import {
   View, Text, StyleSheet, Alert
 } from "react-native"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import ProfileImageBox from "./ProfileImageBox"
 import ProfileForm from "./ProfileForm"
 import ProfileBtn from "./ProfileBtn"
 import ProfileFormCheckboxes from "./ProfileFormCheckboxes"
 import { Validate } from "../pages/FormValidation"
 
+import { AppContext } from "../context/context"
+
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export default function ProfileBox ({ details, setDetails, navigation }) {
+export default function ProfileBox ({ navigation }) {
+  const { details, setDetails } = useContext(AppContext)
   const [newDetails, setNewDetails] = useState({})
   let errMsg = ""
   let error = false
@@ -28,6 +31,7 @@ export default function ProfileBox ({ details, setDetails, navigation }) {
           text: "Yes, please log me out",
           onPress: async () => {
             await AsyncStorage.clear()
+            setDetails({})
             navigation.replace("Onboarding")
           }
         },
@@ -52,7 +56,7 @@ export default function ProfileBox ({ details, setDetails, navigation }) {
       ])
   }
   const saveChanges = async () => {
-    
+    let changed = true
     if (newDetails.firstName && newDetails.lastName && newDetails.email && newDetails.phone ) {
      if (Validate(newDetails.firstName, newDetails.email, newDetails.lastName)) {
        error = false
@@ -72,6 +76,7 @@ export default function ProfileBox ({ details, setDetails, navigation }) {
       setNewDetails({...newDetails, initials: initials})
       try{
         await AsyncStorage.setItem("details", JSON.stringify({...newDetails, initials: initials}))
+        navigation.pop()
       } catch(e) {
         console.log(e);
       }

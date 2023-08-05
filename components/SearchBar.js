@@ -17,13 +17,19 @@ const SearchBar = ({ value, onChangeText, onClear, onSearch, placeholder }) => {
       <View style = {search.input}>
         <TextInput
           value = {val}
-          onChangeText = {(newval) => setVal(newval) && onChangeText(newval)}
+          onChangeText = {(newval) => {
+            setVal(newval)
+            onChangeText(newval)
+          }}
           placeholder = {placeholder}
         />
       </View>
       <Pressable 
         style = {search.clearIcon}
-        onPress = {() => setVal("")}
+        onPress = {() => {
+          setVal("")
+          onClear()
+        }}
       >
         <AntDesign name="close" size={18} color="black" />
       </Pressable>

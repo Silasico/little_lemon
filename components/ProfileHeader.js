@@ -1,12 +1,12 @@
 import {
   View, Text, Pressable, Image, StyleSheet
 } from "react-native"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Ionicons } from '@expo/vector-icons';
+import { AppContext } from "../context/context"
 
-
-export default function ProfileHeader({navigation, details}) {
-  
+export default function ProfileHeader({navigation}) {
+  const { details } = useContext(AppContext)
   
   return (
     <View style = {profile.header}>
@@ -58,7 +58,7 @@ const profile = StyleSheet.create({
     height: 40,
     borderRadius: 40,
   },
-   placeholderImage: {
+  placeholderImage: {
     width: 40,
     height: 40,
     backgroundColor: "orange",
