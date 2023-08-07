@@ -16,7 +16,15 @@ const Onboarding = ({navigation}) => {
   useFocusEffect(
     useCallback(() => {
       const onBackPressed = () => {
-        BackHandler.exitApp()
+        Alert.alert("Exit?", "Would you like to leave application?", [
+            {
+              text: "Yes",
+              onPress: () => BackHandler.exitApp()
+            },
+            {
+              text: "No"
+            }
+          ])
         return true
       }
       
@@ -32,6 +40,8 @@ const Onboarding = ({navigation}) => {
      storeData({firstName, email, initials})
      setDetails({firstName, email, initials})
      navigation.navigate("Home")
+    } else {
+      Alert.alert("Error...", "Please enter a valid name and email to continue")
     }
   }
   
@@ -54,7 +64,9 @@ const Onboarding = ({navigation}) => {
         />
       </View>
       <View style = {onboarding.form}>
-        <Text style = {onboarding.showcaseText}>Let us get to know you</Text>
+        <Text style = {onboarding.showcaseText}>Welcome to Little Lemon Restaurant.
+        
+        Let us get to know you</Text>
         <Text style = {onboarding.formLabel}>
           First Name
         </Text>
@@ -62,23 +74,25 @@ const Onboarding = ({navigation}) => {
           value = {firstName}
           style = {onboarding.input}
           onChangeText = {value => setFirstName(value)}
+          placeholder = "Enter your first name"
         />
         <Text style = {onboarding.formLabel}>
-          Email
+          Email Address
         </Text>
         <TextInput
           value = {email}
           style = {onboarding.input}
           onChangeText = {value => setEmail(value)}
           inputType = "email"
+          placeholder = "Enter your email"
         />
+        <Pressable 
+          style = {onboarding.button}
+          onPress = {changeScreen}
+        >
+          <Text style = {onboarding.buttonText}>CONTINUE</Text>
+        </Pressable>
       </View>
-      <Pressable 
-        style = {onboarding.button}
-        onPress = {changeScreen}
-      >
-        <Text style = {onboarding.buttonText}>Next</Text>
-      </Pressable>
     </View>
   )
 }
@@ -88,12 +102,14 @@ export default Onboarding;
 
 const onboarding = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "#495E57",
   },
   header: {
     backgroundColor: '#EDEFEE',
     paddingHorizontal: 10,
-    paddingTop: 30,
-    paddingBottom: 20,
+    paddingTop: 40,
+    paddingBottom: 15,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -102,42 +118,45 @@ const onboarding = StyleSheet.create({
     height: 50,
   },
   form: {
-    backgroundColor: "#DDDDEE",
     paddingHorizontal: 20,
     paddingVertical: 10,
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
   },
   showcaseText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#495E57",
-    marginVertical: 50,
+    color: "#fff",
+    marginVertical: 30,
+    textAlign: "center",
+    lineHeight: 30,
+    textTransform: "uppercase",
+    color: "yellow",
   },
   formLabel: {
-    color: "#495E57",
+    color: "#fff",
     fontSize: 15,
-    marginBottom: 15,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   input: {
-    borderWidth: 2,
-    borderColor: "#495E57",
-    width: 200,
-    borderRadius: 10,
-    marginBottom: 30,
-    height: 40,
+    width: 250,
+    marginBottom: 20,
     paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: "#fff",
   },
   button: {
-    backgroundColor: "#DDDDEE",
     paddingHorizontal: 10,
     paddingVertical: 10,
-    borderRadius: 10,
-    width: 100,
     alignItems: "center",
+    alignSelf: "center",
     justifyContent: "center",
-    left: 200,
-    marginVertical: 40,
+    marginHorizontal: 20,
+    backgroundColor: "#fff",
+    width: 250,
+    marginTop: 10,
   },
   buttonText: {
     color: "#495E57",

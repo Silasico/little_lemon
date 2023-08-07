@@ -48,7 +48,7 @@ const style = StyleSheet.create({
     gap: 20,
   },
   descriptionBox: {
-    flex: 4,
+    flex: 1,
   },
   name: {
     fontSize: 16,
@@ -66,7 +66,6 @@ const style = StyleSheet.create({
     fontSize: 16,
   },
   imageBox: {
-    flex: 2
   },
   image: {
     width: 80,

@@ -1,13 +1,17 @@
 import {
   View, Text, Image, StyleSheet
 } from "react-native"
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { useFonts } from "expo-font"
 import SearchBar from "./SearchBar";
+import debounce from "lodash.debounce"
 
 const HomeBanner = ({ headerFont, bodyFont, setQuery, updateList }) => {
-  const [searchValue, setSearchValue] = useState("")
   
+  const delayQuery = (value) => {
+    setQuery(value)
+  }
+  const debouncedQuery = debounce(delayQuery, 500)
   
   
   return (
@@ -31,11 +35,8 @@ const HomeBanner = ({ headerFont, bodyFont, setQuery, updateList }) => {
       <View style = {banner.searchBox}>
         <SearchBar
           placeholder = "Enter your preferred delicacy to search"
-          value = {searchValue}
           onClear = {() => setQuery("")}
-          onChangeText = {val => {
-            setQuery(val)
-          }}
+          onChangeText = {debouncedQuery}
         />
       </View>
     </View>
@@ -47,24 +48,25 @@ export default HomeBanner
 const banner = StyleSheet.create({
   container: {
     backgroundColor: "#495E57",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   headerText: {
-    fontSize: 60,
+    fontSize: 50,
     color: "yellow",
   },
   showcase: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20
+    marginBottom: 10,
   },
   showcaseTexts: {
-    flex: 4,
+    flex: 1,
     marginRight: 10
   },
   showcaseHeader: {
-    fontSize: 35,
+    fontSize: 25,
     color: "#FFFFFF",
     marginBottom: 0,
   },
@@ -73,12 +75,11 @@ const banner = StyleSheet.create({
     color: "#FFFFFF"
   },
   imageBox: {
-    flex: 2,
     marginLeft: 20,
   },
   showcaseImage: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 15,
   },
   searchBox: {

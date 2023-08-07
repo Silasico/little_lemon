@@ -1,5 +1,5 @@
 import {
-  Text, View, Pressable, StyleSheet, FlatList
+  Text, View, Pressable, StyleSheet, FlatList, ScrollView, Alert
 } from "react-native"
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -30,6 +30,9 @@ const HomeData = ({ font, query }) => {
             fetchedData = res.data.menu
             setData(fetchedData)
             saveData(fetchedData)
+          }).catch(err => {
+            Alert.alert(err.message, "Please connect to the internet first time in the app")
+            setData([])
           })
         }
         
@@ -101,8 +104,14 @@ const checkButtonTextStyles = (item) => {
   
   return (
     <View style = {style.container}>
-      <Text style = {{...style.headerText, fontFamily: font}}>ORDER FOR DELIVERY!</Text>
-      <View style = {style.filterCont}>
+      <Text 
+        style = {{...style.headerText, fontFamily: font}}
+      >
+        ORDER FOR DELIVERY!
+      </Text>
+      <View 
+        style = {style.filterCont}
+      >
         {sections.map((item, index) => (
           <Pressable
             style = {checkButtonStyles(item)}
@@ -111,7 +120,11 @@ const checkButtonTextStyles = (item) => {
               toggleActive(item)
             }}
           >
-            <Text style = {checkButtonTextStyles(item)}>{item}</Text>
+            <Text 
+              style = {checkButtonTextStyles(item)}
+            >
+              {item}
+            </Text>
           </Pressable>
         ))}
       </View>
@@ -142,11 +155,11 @@ const style = StyleSheet.create({
   container: {
     padding: 20,
     backgroundColor: "#fff",
+    flex: 1,
   },
   headerText: {
     fontWeight: "bold",
     fontSize: 18,
-    marginBottom: 10,
   },
   filterCont: {
     flexDirection: "row",
@@ -177,11 +190,10 @@ const style = StyleSheet.create({
     fontSize: 12,
   },
   listBox: {
-    marginVertical: 20,
-    paddingVertical: 20,
+    marginTop: 20,
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
-    borderTopColor: "#"
+    flex: 2
   },
   errorText: {
     textAlign: "center",
