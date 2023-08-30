@@ -31,7 +31,7 @@ const Navigation = () => {
       } catch (e) {
         console.log(e);
       } finally {
-        setTimeout(() => {setLoading(false)}, 0);
+        setTimeout(() => {setLoading(false)}, 2000);
       }
     }
     getData()

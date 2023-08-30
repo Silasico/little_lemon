@@ -29,6 +29,6 @@ const splash = StyleSheet.create({
   name: {
     color: "#495E57",
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 20,
   }
 })
