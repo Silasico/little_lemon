@@ -99,14 +99,6 @@ export default function ProfileBox ({ navigation }) {
         setError = {(val) => setError(val)}
       />
       <ProfileFormCheckboxes details = {newDetails} setNewDetails = {setNewDetails} />
-      <ProfileBtn
-        bgColor = "#FAD000"
-        bColor= "orange"
-        name = "Log out"
-        color = "#000000"
-        onPress = {logout}
-        style = {profile.logoutbtn}
-      />
       <View style = {profile.btnBox}>
         <ProfileBtn
           bgColor = "#FFFFFF"
@@ -123,6 +115,14 @@ export default function ProfileBox ({ navigation }) {
           onPress = {saveChanges}
         />
       </View>
+      <ProfileBtn
+        bgColor = "#FAD000"
+        bColor= "orange"
+        name = "Log out"
+        color = "#000000"
+        onPress = {logout}
+        style = {profile.logoutbtn}
+      />
     </View>
   )
 }
@@ -130,11 +130,13 @@ export default function ProfileBox ({ navigation }) {
 const profile = StyleSheet.create({
   profileBox: {
     padding: 10,
+    paddingBottom: 20,
     borderWidth: 0.3,
     borderColor: "#495E57",
     borderRadius: 5,
     backgroundColor: "#FFFFFF",
     marginHorizontal: 10,
+    marginBottom: 10,
   },
   profileBoxHeader: {
     fontSize: 15,
@@ -142,14 +144,9 @@ const profile = StyleSheet.create({
     marginBottom: 20,
     color: "#333333"
   },
-  logoutbtn: {
-    marginVertical: 15,
-  },
   btnBox: {
-    marginTop: 30,
-    paddingHorizontal: 20,
+    marginBottom: 15,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around"
+    gap: 10,
   }
 })

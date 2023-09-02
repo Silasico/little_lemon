@@ -6,22 +6,22 @@ const profileBtn = ({bgColor = "#495E57", bColor = "#ffffff", name, onPress, col
   return(
     <Pressable
       style = {{
-        paddingHorizontal: 15,
+        paddingHorizontal: 20,
         paddingVertical: 10,
         borderRadius: 4,
         backgroundColor: bgColor,
-        marginHorizontal: 10,
         borderWidth: 1,
         borderColor: bColor,
         alignItems: "center",
         justifyContent: "center",
+        flex: 1
       }}
       onPress = {onPress}
     >
       <Text style = {{
         color: color,
-        fontSize: 12,
-        fontWeight: "bold"
+        fontSize: 14,
+        fontFamily: "Karla-Regular"
       }}>{name}</Text>
     </Pressable>
   )

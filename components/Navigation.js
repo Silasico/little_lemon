@@ -46,6 +46,7 @@ const Navigation = () => {
   
   return (
     <NavigationContainer>
+      
       <DetailsContext>
         <Stack.Navigator initialRouteName = {!loading && details ? "Home" : "Onboarding"} screenOptions = {{headerShown: false}}>
             <Stack.Screen name = "Onboarding" component ={Onboarding} />

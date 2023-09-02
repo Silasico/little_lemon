@@ -17,15 +17,6 @@ const Home = ({ navigation }) => {
   const [query, setQuery] = useState("")
   
   useEffect(()=> {
-    Alert.alert("NOTICE", "Dear reviewer, I would like a favour from you. The project does not contain a figma design because i built this project using my phone(used termux and ACODE). I can't make use of Figma on my phone, i would have tried it. But I have gone through this course from the beginning up till this stage using my phone and i would require your help to help me with a mark for the figma when reviewing. The app performs all the functionality and you can check it out and grade the other requirements based on your interaction with the app. Thanks in advance for your assistance ❤️. You can also connect with me on whatsapp by clicking the Conmect with me", [
-        {
-          text: "Connect with me",
-          onPress: () => Linking.openURL("https://wa.me/2348161299594")
-        },
-        {
-          text: "Ok"
-        }
-      ])
     const loadFont = async () => {
       await Font.loadAsync({
         "Karla-Regular": require("../assets/fonts/Karla-Regular.ttf"),
@@ -83,7 +74,5 @@ const home = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
-    //alignItems: "center",
-    //justifyContent: "center",
   }
 })

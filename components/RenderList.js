@@ -1,12 +1,12 @@
 import {
-  Text, Image, View, StyleSheet
+  Text, Image, View, StyleSheet, Pressable
 } from "react-native"
 import { useState, useEffect } from "react"
 
 import { imgArr } from "./ImageResources"
 
 
-const RenderList = ({ name, description, price, font, category }) => {
+const RenderList = ({ name, description, price, font, category, onPress }) => {
   const [imageSource, setImageSource] = useState(null)
   
   useEffect(() => {
@@ -14,7 +14,10 @@ const RenderList = ({ name, description, price, font, category }) => {
   }, [])
   
   return (
-    <View style = {style.container}>
+    <Pressable 
+      style = {style.container}
+      onPress = {onPress}
+    >
       <View style = {style.descriptionBox}>
         <Text style = {{...style.name, fontFamily: font}}>
           {name}
@@ -33,7 +36,7 @@ const RenderList = ({ name, description, price, font, category }) => {
           style = {style.image}
         />
       </View>
-    </View>
+    </Pressable>
   )
 }
 

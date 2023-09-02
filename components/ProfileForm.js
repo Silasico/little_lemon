@@ -82,6 +82,7 @@ const form = StyleSheet.create({
     color: "#333333",
     fontWeight: "bold",
     marginBottom: 5,
+    fontFamily: "Karla-Regular",
   },
   input: {
     borderWidth: 0.7,
@@ -89,5 +90,7 @@ const form = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 5,
     paddingHorizontal: 7,
+    fontFamily: "MarkaziText-Regular",
+    fontSize: 18,
   }
 })

@@ -58,7 +58,7 @@ const banner = StyleSheet.create({
   showcase: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    
     marginBottom: 10,
   },
   showcaseTexts: {
@@ -68,18 +68,17 @@ const banner = StyleSheet.create({
   showcaseHeader: {
     fontSize: 25,
     color: "#FFFFFF",
-    marginBottom: 0,
   },
   showcaseLines: {
     fontSize: 16,
     color: "#FFFFFF"
   },
   imageBox: {
-    marginLeft: 20,
+    marginLeft: 0,
   },
   showcaseImage: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     borderRadius: 15,
   },
   searchBox: {

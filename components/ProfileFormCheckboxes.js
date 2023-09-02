@@ -68,7 +68,7 @@ export default function ProfileFormCheckboxes({ details, setNewDetails }) {
 
 const checkbox = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   header: {
     color: "#333333",
@@ -76,6 +76,7 @@ const checkbox = StyleSheet.create({
     marginTop: 10,
     fontWeight: "bold",
     marginBottom: 20,
+    fontFamily: "Karla-Regular"
   },
   box: {
     flexDirection: "row",
@@ -83,7 +84,8 @@ const checkbox = StyleSheet.create({
     marginBottom: 20
   },
   label: {
-    fontWeight: "bold",
     marginLeft: 10,
+    fontFamily: "MarkaziText-Regular",
+    fontSize: 18
   }
 })

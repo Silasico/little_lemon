@@ -5,16 +5,20 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { createTable, saveData, getAllData, filterData } from "./Database"
 import * as Sqlite from "expo-sqlite"
-
 import RenderList from "./RenderList"
+import ProductModal from "./ProductModal"
 
 const db = Sqlite.openDatabase("little-lemon")
 
 
 const HomeData = ({ font, query }) => {
   const sections = ["Starters", "Mains", "Desserts", "Drinks"]
-  const [activeSections, setActiveSections] = useState([])
+  const [activeSections, setActiveSections] = useState(sections)
   const [data, setData] = useState([])
+  const [filteredData, setFilteredData] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedItem, setSelectedItem] = useState({})
+  
   
   useEffect(() => {
     const checkStorage = async () => {
@@ -24,11 +28,12 @@ const HomeData = ({ font, query }) => {
         
         if(fetchedData.length > 0) {
           setData(fetchedData)
-          setActiveSections([...sections])
+          setActiveSections(sections.map(section => section.toLowerCase()))
         } else {
           axios.get("https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/capstone.json").then(res => {
             fetchedData = res.data.menu
             setData(fetchedData)
+            setFilteredData(data)
             saveData(fetchedData)
           }).catch(err => {
             Alert.alert(err.message, "Please connect to the internet first time in the app")
@@ -43,8 +48,11 @@ const HomeData = ({ font, query }) => {
  } , [])
  
 useEffect(() => {
-  const renderUi = async () => {
+  /*const renderUi = async () => {
     setData(await filterData(activeSections, query))
+  }*/
+  const renderUi = () => {
+    setFilteredData(data.filter(item => item.name.toLowerCase().includes(query.toLowerCase()) && activeSections.includes(item.category)))
   }
   renderUi()
 }, [activeSections, query])
@@ -52,7 +60,7 @@ useEffect(() => {
  const checkButtonStyles = (item) => {
    let present
    for (var j = 0; j < activeSections.length; j++) {
-     if (activeSections[j] == item) {
+     if (activeSections[j] == item.toLowerCase()) {
        present = true
        return style.activeBtn
        break;
@@ -68,7 +76,7 @@ useEffect(() => {
 const checkButtonTextStyles = (item) => {
    let present
    for (var j = 0; j < activeSections.length; j++) {
-     if (activeSections[j] == item) {
+     if (activeSections[j] == item.toLowerCase()) {
        present = true
        return style.activeBtnText
        break;
@@ -85,7 +93,7 @@ const checkButtonTextStyles = (item) => {
    let present
    let newArr
    for (var j = 0; j < activeSections.length; j++) {
-     if (activeSections[j] == item) {
+     if (activeSections[j] == item.toLowerCase()) {
        present = true
        newArr = activeSections.filter(sec => sec != activeSections[j])
        setActiveSections(newArr)
@@ -96,14 +104,28 @@ const checkButtonTextStyles = (item) => {
    }
    
    if (!present) {
-     newArr = [...activeSections, item]
+     newArr = [...activeSections, item.toLowerCase()]
      setActiveSections(newArr)
    }
  }
  
+ const handleProductPress = (item) => {
+   setSelectedItem(item)
+   setModalVisible(true)
+   
+ }
   
   return (
     <View style = {style.container}>
+    
+      <ProductModal
+        visible = {modalVisible}
+        handleCloseModal = {() => setModalVisible(false)}
+        selectedItem = {selectedItem}
+        font = {font}
+        
+      />
+      
       <Text 
         style = {{...style.headerText, fontFamily: font}}
       >
@@ -129,8 +151,8 @@ const checkButtonTextStyles = (item) => {
         ))}
       </View>
       <View style = {style.listBox}>
-      {data.length > 0 ? <FlatList
-        data = {data}
+      {filteredData.length > 0 ? <FlatList
+        data = {filteredData}
         renderItem = {({item}) => {
           return (
             <RenderList
@@ -139,6 +161,7 @@ const checkButtonTextStyles = (item) => {
               price = {item.price}
               image = {item.image}
               font = {font}
+              onPress = {() => handleProductPress(item)}
             />
           )
         }}

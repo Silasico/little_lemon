@@ -46,7 +46,7 @@ export default HomeHeader
 
 const header = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    paddingTop: 0,
     paddingHorizontal: 0,
     flexDirection: "row",
     backgroundColor: "#ffffff",

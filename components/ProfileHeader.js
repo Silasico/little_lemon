@@ -10,8 +10,8 @@ export default function ProfileHeader({navigation}) {
   
   return (
     <View style = {profile.header}>
-        <Pressable style = {profile.backBtn}>
-          <Ionicons name="arrow-back" size={18} color="white"  onPress = {() => navigation.pop()}/>
+        <Pressable style = {profile.backBtn} onPress = {() => navigation.pop()}>
+          <Ionicons name="arrow-back" size={18} color="white"/>
         </Pressable>
         <Image
           source = {require('../assets/images/Logo.png')}
@@ -35,7 +35,7 @@ const profile = StyleSheet.create({
   header: {
     alignItems: "center",
     justifyContent: "space-between",
-    paddingTop: 30,
+    paddingTop: 10,
     paddingBottom: 10,
     paddingHorizontal: 15,
     flexDirection: "row",

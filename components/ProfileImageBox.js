@@ -2,18 +2,37 @@ import {
   Text, View, Image, StyleSheet, Alert
 } from "react-native"
 import {useState, useEffect} from "react"
-import * as DocumentPicker from "expo-document-picker"
+import * as ImagePicker from "expo-image-picker"
 
 import ProfileBtn from "./ProfileBtn"
 
 export default function ProfileImageBox({ details, setNewDetails }) {
   
-  const changeProfilePicture = async () => {
-    const result = await DocumentPicker.getDocumentAsync({})
-    if (result && !result.canceled) {
-      setNewDetails({...details, uri: result.assets[0].uri})
+  // const changeProfilePicture = async () => {
+  //   const result = await DocumentPicker.getDocumentAsync({})
+  //   if (result && !result.canceled) {
+  //     setNewDetails({...details, uri: result.assets[0].uri})
+  //   }
+  // }
+  
+  const pickImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setNewDetails({...details, uri: result.assets[0].uri})
+        
+      }
+    } catch (error) {
+      Alert.alert("Error picking an image", error);
     }
-  }
+  };
+
   
   const removeProfilePicture = () => {
     Alert.alert("Are you sure you want to remove your profile picture?", "", [
@@ -47,7 +66,7 @@ export default function ProfileImageBox({ details, setNewDetails }) {
           bColor= "#ffffff"
           name = "Change"
           color = "#ffffff"
-          onPress = {changeProfilePicture}
+          onPress = {pickImage}
           style = {box.btn}
         />
         <ProfileBtn
@@ -89,9 +108,10 @@ const box = StyleSheet.create({
     justifyContent: "center"
   },
   placeholderText: {
-    fontSize: 30,
+    fontSize: 35,
     color: "#FFFFFF",
-    fontWeight: "bold",
+    fontFamily: "Karla-Regular",
+    fontWeight: "bold"
   },
   imageBox: {
     marginRight: 10,
@@ -100,7 +120,9 @@ const box = StyleSheet.create({
   },
   btnBox: {
     flexDirection: "row",
-    marginTop: 20
+    marginTop: 20,
+    paddingRight: 20,
+    gap: 10,
   },
   btn: {
     marginRight: 20
