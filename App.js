@@ -1,6 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform } from 'react-native';
+import { useContext } from "react";
 import Navigation from './components/Navigation'
 import { StatusBar } from 'expo-status-bar';
+import Constant from "expo-constants";
+import DetailsContext, { AppContext } from "./context/context"
 
 export default function App() {
   return (
@@ -11,13 +14,16 @@ export default function App() {
         style = {"light"}
         backgroundColor = {"#495E57"}
       />
-      <Navigation />
+      <DetailsContext>
+        <Navigation />
+      </DetailsContext>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingTop: Platform.OS === "android" ? Constant.statusBarHeight : null,
   },
 });

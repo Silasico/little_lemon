@@ -35,8 +35,8 @@ const profile = StyleSheet.create({
   header: {
     alignItems: "center",
     justifyContent: "space-between",
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
     paddingHorizontal: 15,
     flexDirection: "row",
     backgroundColor: "#ffffff"

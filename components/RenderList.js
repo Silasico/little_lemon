@@ -6,12 +6,12 @@ import { useState, useEffect } from "react"
 import { imgArr } from "./ImageResources"
 
 
-const RenderList = ({ name, description, price, font, category, onPress }) => {
+const RenderList = ({ name, description, price, category, onPress, index }) => {
   const [imageSource, setImageSource] = useState(null)
   
   useEffect(() => {
     imgArr.map(img => img.name === name && setImageSource(img.source))
-  }, [])
+  }, [index])
   
   return (
     <Pressable 
@@ -19,13 +19,13 @@ const RenderList = ({ name, description, price, font, category, onPress }) => {
       onPress = {onPress}
     >
       <View style = {style.descriptionBox}>
-        <Text style = {{...style.name, fontFamily: font}}>
+        <Text style = {style.name}>
           {name}
         </Text>
-        <Text style = {{...style.descriptions, fontFamily: font}}>
+        <Text style = {style.descriptions}>
           {description}
         </Text>
-        <Text style = {{...style.price, fontFamily: font}}>
+        <Text style = {style.price}>
           ${price}
         </Text>
       </View>
@@ -57,16 +57,18 @@ const style = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 5,
+    fontFamily: "Karla-Regular"
   },
   descriptions: {
     color: "#495E57",
-    fontWeight: "light",
     fontSize: 14,
     marginBottom: 10,
+    fontFamily: "Karla-Regular",
   },
   price: {
     color: "#495E57",
     fontSize: 16,
+    fontFamily: "Karla-Regular",
   },
   imageBox: {
   },
