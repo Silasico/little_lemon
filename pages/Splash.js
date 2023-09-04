@@ -8,7 +8,7 @@ const Splash = () => {
         resizeMode = 'contain'
         style = {splash.logo}
       />
-      <Text style = {splash.name}>Little Lemon Restaurant</Text>
+      
     </View>
   )
 }
@@ -23,12 +23,13 @@ const splash = StyleSheet.create({
   },
   logo: {
     width: 200,
-    height: 100,
-    marginBottom: 20
+    height: 150,
+    marginBottom:0
   },
   name: {
     color: "#495E57",
     fontWeight: "bold",
     fontSize: 20,
+    fontFamily: "MarkaziText-Regular"
   }
 })

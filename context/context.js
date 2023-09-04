@@ -1,12 +1,12 @@
-import { createContext, useLayoutEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const AppContext = createContext(null)
 
 const DetailsContext = ({ children }) => {
-  const [details, setDetails] = useState({})
+  const [details, setDetails] = useState(null)
   
-  useLayoutEffect(() => {
+  useEffect(() => {
     const getDetails = async () => {
       try {
         const storedData = await AsyncStorage.getItem("details")

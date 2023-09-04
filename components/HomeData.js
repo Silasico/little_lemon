@@ -11,7 +11,7 @@ import ProductModal from "./ProductModal"
 const db = Sqlite.openDatabase("little-lemon")
 
 
-const HomeData = ({ font, query }) => {
+const HomeData = ({ query }) => {
   const sections = ["Starters", "Mains", "Desserts", "Drinks"]
   const [activeSections, setActiveSections] = useState(sections)
   const [data, setData] = useState([])
@@ -35,6 +35,7 @@ const HomeData = ({ font, query }) => {
             setData(fetchedData)
             setFilteredData(data)
             saveData(fetchedData)
+            setActiveSections(sections.map(section => section.toLowerCase()))
           }).catch(err => {
             Alert.alert(err.message, "Please connect to the internet first time in the app")
             setData([])
@@ -47,15 +48,15 @@ const HomeData = ({ font, query }) => {
     checkStorage()
  } , [])
  
-useEffect(() => {
-  /*const renderUi = async () => {
-    setData(await filterData(activeSections, query))
-  }*/
-  const renderUi = () => {
-    setFilteredData(data.filter(item => item.name.toLowerCase().includes(query.toLowerCase()) && activeSections.includes(item.category)))
-  }
-  renderUi()
-}, [activeSections, query])
+  useEffect(() => {
+    /*const renderUi = async () => {
+      setData(await filterData(activeSections, query))
+    }*/
+    const renderUi = () => {
+      setFilteredData(data.filter(item => item.name.toLowerCase().includes(query.toLowerCase()) && activeSections.includes(item.category)))
+    }
+    renderUi()
+  }, [activeSections, query])
  
  const checkButtonStyles = (item) => {
    let present
@@ -122,12 +123,11 @@ const checkButtonTextStyles = (item) => {
         visible = {modalVisible}
         handleCloseModal = {() => setModalVisible(false)}
         selectedItem = {selectedItem}
-        font = {font}
         
       />
       
       <Text 
-        style = {{...style.headerText, fontFamily: font}}
+        style = {style.headerText}
       >
         ORDER FOR DELIVERY!
       </Text>
@@ -153,20 +153,21 @@ const checkButtonTextStyles = (item) => {
       <View style = {style.listBox}>
       {filteredData.length > 0 ? <FlatList
         data = {filteredData}
-        renderItem = {({item}) => {
+        renderItem = {({item, index}) => {
           return (
             <RenderList
               name = {item.name}
               description = {item.description}
               price = {item.price}
               image = {item.image}
-              font = {font}
               onPress = {() => handleProductPress(item)}
+              index = {index}
             />
           )
         }}
         style = {style.list}
-      /> : <Text style = {{...style.errorText, fontFamily: font}}>No item in this category</Text>}
+        showsVerticalScrollIndicator = {false}
+      /> : <Text style = {style.errorText}>No item in this category</Text>}
       </View>
     </View>
   )
@@ -176,19 +177,21 @@ export default HomeData
 
 const style = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     backgroundColor: "#fff",
     flex: 1,
   },
   headerText: {
     fontWeight: "bold",
     fontSize: 18,
+    fontFamily: "Karla-Regular"
   },
   filterCont: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
   },
   filterBtn: {
     backgroundColor: "#EDEEEF",
@@ -213,7 +216,7 @@ const style = StyleSheet.create({
     fontSize: 12,
   },
   listBox: {
-    marginTop: 20,
+    marginTop: 10,
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     flex: 2
@@ -221,6 +224,7 @@ const style = StyleSheet.create({
   errorText: {
     textAlign: "center",
     fontSize: 20,
-    color: "#999"
+    color: "#999",
+    fontFamily: "Karla-Regular"
   }
 })

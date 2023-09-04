@@ -31,8 +31,7 @@ export default function ProfileBox ({ navigation }) {
           text: "Yes, please log me out",
           onPress: async () => {
             await AsyncStorage.clear()
-            setDetails({})
-            navigation.replace("Onboarding")
+            setDetails(null)
           }
         },
         {

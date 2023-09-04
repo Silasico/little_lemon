@@ -7,39 +7,38 @@ import { useFocusEffect } from "@react-navigation/native"
 
 import { AppContext } from "../context/context"
 
-const Onboarding = ({navigation}) => {
+const Onboarding = ({navigation, setRemoveOnboarding}) => {
   const [firstName, setFirstName] = useState("")
   const [email, setEmail] = useState("")
   
-  const { details, setDetails } = useContext(AppContext)
+  const { setDetails } = useContext(AppContext)
   
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPressed = () => {
-        Alert.alert("Exit?", "Would you like to leave application?", [
-            {
-              text: "Yes",
-              onPress: () => BackHandler.exitApp()
-            },
-            {
-              text: "No"
-            }
-          ])
-        return true
-      }
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     const onBackPressed = () => {
+  //       Alert.alert("Exit?", "Would you like to leave application?", [
+  //           {
+  //             text: "Yes",
+  //             onPress: () => BackHandler.exitApp()
+  //           },
+  //           {
+  //             text: "No"
+  //           }
+  //         ])
+  //       return true
+  //     }
       
-      BackHandler.addEventListener("hardwareBackPress", onBackPressed)
+  //     BackHandler.addEventListener("hardwareBackPress", onBackPressed)
       
-      return () => BackHandler.removeEventListener("hardwareBackPress", onBackPressed)
-     })
-  )
+  //     return () => BackHandler.removeEventListener("hardwareBackPress", onBackPressed)
+  //   })
+  // )
   
   const changeScreen = () => {
     const initials = firstName[0]
     if(Validate(firstName, email)) {
      storeData({firstName, email, initials})
      setDetails({firstName, email, initials})
-     navigation.navigate("Home")
     } else {
       Alert.alert("Error...", "Please enter a valid name and email to continue")
     }
@@ -108,8 +107,7 @@ const onboarding = StyleSheet.create({
   header: {
     backgroundColor: '#EDEFEE',
     paddingHorizontal: 10,
-    paddingTop: 40,
-    paddingBottom: 15,
+    paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -119,20 +117,20 @@ const onboarding = StyleSheet.create({
   },
   form: {
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 20,
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
   },
   showcaseText: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 30,
     color: "#fff",
-    marginVertical: 30,
+    marginBottom: 30,
     textAlign: "center",
-    lineHeight: 30,
+    lineHeight: 35,
     textTransform: "uppercase",
     color: "yellow",
+    fontFamily: "MarkaziText-Regular"
   },
   formLabel: {
     color: "#fff",

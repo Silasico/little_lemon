@@ -3,8 +3,7 @@ import {
   StyleSheet, Alert, BackHandler
 } from "react-native"
 import { useState, useEffect, useCallback } from "react"
-import * as Font from "expo-font"
-import * as Linking from "expo-linking"
+//import * as Linking from "expo-linking"
 import { useFocusEffect } from "@react-navigation/native"
 
 import HomeHeader from "../components/HomeHeader"
@@ -15,17 +14,6 @@ import HomeData from "../components/HomeData"
 const Home = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState("")
-  
-  useEffect(()=> {
-    const loadFont = async () => {
-      await Font.loadAsync({
-        "Karla-Regular": require("../assets/fonts/Karla-Regular.ttf"),
-        "MarkaziText-Regular": require("../assets/fonts/MarkaziText-Regular.ttf")
-      })
-      setLoading(false)
-    }
-    loadFont()
-  }, [])
   
   useFocusEffect(
     useCallback(() => {
@@ -56,12 +44,9 @@ const Home = ({ navigation }) => {
         navigation = {navigation}
       />
       <HomeBanner 
-        headerFont = {!loading ? "MarkaziText-Regular" : ""}
-        bodyFont = {!loading ? "Karla-Regular" : ""}
         setQuery = {(val) => setQuery(val)}
       />
       <HomeData 
-        font = {!loading ? "Karla-Regular" : ""}
         query = {query}
       />
      

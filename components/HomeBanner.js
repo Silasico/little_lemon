@@ -6,7 +6,7 @@ import { useFonts } from "expo-font"
 import SearchBar from "./SearchBar";
 import debounce from "lodash.debounce"
 
-const HomeBanner = ({ headerFont, bodyFont, setQuery, updateList }) => {
+const HomeBanner = ({ setQuery }) => {
   
   const delayQuery = (value) => {
     setQuery(value)
@@ -16,13 +16,13 @@ const HomeBanner = ({ headerFont, bodyFont, setQuery, updateList }) => {
   
   return (
     <View style = {banner.container}>
-      <Text style = {{...banner.headerText, fontFamily: headerFont}}>
-      Little Lemon
+      <Text style = {banner.headerText}>
+        Little Lemon
       </Text>
       <View style = {banner.showcase}>
         <View style = {banner.showcaseTexts}>
-          <Text style = {{...banner.showcaseHeader, fontFamily: headerFont}}>Chicago</Text>
-          <Text style = {{...banner.showcaseLines, fontFamily: bodyFont}}>We are a family owned Mediterranean Restaurant, focused on traditional recipes served with modern twist</Text>
+          <Text style = {banner.showcaseHeader}>Chicago</Text>
+          <Text style = {banner.showcaseLines}>We are a family owned Mediterranean Restaurant, focused on traditional recipes served with modern twist</Text>
         </View>
         <View style = {banner.imageBox}>
           <Image
@@ -54,6 +54,7 @@ const banner = StyleSheet.create({
   headerText: {
     fontSize: 50,
     color: "yellow",
+    fontFamily: "MarkaziText-Regular"
   },
   showcase: {
     flexDirection: "row",
@@ -63,15 +64,17 @@ const banner = StyleSheet.create({
   },
   showcaseTexts: {
     flex: 1,
-    marginRight: 10
+    marginRight: 10,
   },
   showcaseHeader: {
     fontSize: 25,
     color: "#FFFFFF",
+    fontFamily: "MarkaziText-Regular"
   },
   showcaseLines: {
     fontSize: 16,
-    color: "#FFFFFF"
+    color: "#FFFFFF",
+    fontFamily: "Karla-Regular"
   },
   imageBox: {
     marginLeft: 0,
